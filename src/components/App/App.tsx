@@ -3,10 +3,8 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { initialData } from '../data';
 import { Column } from './../Column/Column';
 
-// const data: any = initialData;
-
 export const App = (): JSX.Element => {
-  const [data, setData] = useState<any>(initialData);
+  const [data, setData] = useState<Record<string, any>>(initialData);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source, draggableId } = result;

@@ -11,23 +11,23 @@ const Container = styled.div`
 const Title = styled.h3`
   padding: 8px;
 `;
-const TaskList = styled.div`
+const TaskList = styled.div<{ isDraggingOver: boolean }>`
   padding: 8px;
+  background-color: ${(props) => (props.isDraggingOver ? 'skyblue' : 'white')};
 `;
 
 type ColumnPropsType = {
-  key: string;
   tasks: Record<string, any>;
   column: Record<string, any>;
 };
 
-export const Column = ({ key, tasks, column }: ColumnPropsType): JSX.Element => {
+export const Column = ({ tasks, column }: ColumnPropsType): JSX.Element => {
   return (
     <Container>
       <Title>{column.title}</Title>
       <Droppable droppableId={column.id}>
-        {(provided) => (
-          <TaskList ref={provided.innerRef} {...provided.droppableProps}>
+        {(provided, snapshot) => (
+          <TaskList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
             {tasks.map((task: Record<string, string>, index: number) => (
               <Task key={task.id} task={task} index={index} />
             ))}
